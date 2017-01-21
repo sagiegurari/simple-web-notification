@@ -1,6 +1,6 @@
 /*global console: false */
 
-(function () {
+$(function onLoad() {
     var $title = $('#title');
     var $message = $('#message');
     var $button = $('.btn');
@@ -28,4 +28,4 @@
             }
         });
     });
-})();
+});
