@@ -6,7 +6,25 @@
  * @param {function} [hide] - The hide notification function
  */
 
-(function create(context, factory) {
+/**
+ * A simplified web notification API.
+ *
+ * @name webNotification
+ * @namespace webNotification
+ * @author Sagie Gur-Ari
+ */
+
+/**
+ * Initializes the web notification API.
+ *
+ * @function
+ * @memberof! webNotification
+ * @alias webNotification.initWebNotification
+ * @private
+ * @param {Object} context - The root context (window/global/...)
+ * @param {function} factory - Returns a new instance of the API
+ */
+(function initWebNotification(context, factory) {
     'use strict';
 
     var webNotification = factory(context.Notification);
@@ -24,13 +42,6 @@
 }(this, function initWebNotification(NotifyLib) {
     'use strict';
 
-    /**
-     * A simplified web notification API.
-     *
-     * @name webNotification
-     * @namespace webNotification
-     * @author Sagie Gur-Ari
-     */
     var service = {};
 
     /**
