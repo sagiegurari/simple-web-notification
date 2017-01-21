@@ -42,7 +42,7 @@
 }(this, function initWebNotification(NotifyLib) {
     'use strict';
 
-    var service = {};
+    var webNotification = {};
 
     /**
      * The internal Notification library used by this library.
@@ -51,7 +51,7 @@
      * @alias webNotification.lib
      * @private
      */
-    service.lib = NotifyLib;
+    webNotification.lib = NotifyLib;
 
     /**
      * True to enable automatic requesting of permissions if needed.
@@ -61,10 +61,10 @@
      * @alias webNotification.allowRequest
      * @public
      */
-    service.allowRequest = true; //true to enable automatic requesting of permissions if needed
+    webNotification.allowRequest = true; //true to enable automatic requesting of permissions if needed
 
     /*eslint-disable func-name-matching*/
-    Object.defineProperty(service, 'permissionGranted', {
+    Object.defineProperty(webNotification, 'permissionGranted', {
         /**
          * Returns the permission granted value.
          *
@@ -116,7 +116,7 @@
      * @returns {Boolean} True if allowed to show web notifications
      */
     var isEnabled = function () {
-        return service.permissionGranted;
+        return webNotification.permissionGranted;
     };
 
     /**
@@ -246,7 +246,7 @@
      * });
      * ```
      */
-    service.showNotification = function () {
+    webNotification.showNotification = function () {
         //convert to array to enable modifications
         var argumentsArray = Array.prototype.slice.call(arguments, 0);
 
@@ -262,7 +262,7 @@
             if (isEnabled()) {
                 hideNotification = createAndDisplayNotification(title, options);
                 callback(null, hideNotification);
-            } else if (service.allowRequest) {
+            } else if (webNotification.allowRequest) {
                 NotifyLib.requestPermission(function onRequestDone() {
                     if (isEnabled()) {
                         hideNotification = createAndDisplayNotification(title, options);
@@ -277,5 +277,5 @@
         }
     };
 
-    return service;
+    return webNotification;
 }));
