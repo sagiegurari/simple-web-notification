@@ -1,0 +1,59 @@
+{
+  "name": "simple-web-notification",
+  "version": "0.0.1",
+  "description": "Web Notifications made easy.",
+  "author": {
+    "name": "Sagie Gur-Ari",
+    "email": "sagiegurari@gmail.com"
+  },
+  "license": "Apache-2.0",
+  "homepage": "http://github.com/sagiegurari/simple-web-notification",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/sagiegurari/simple-web-notification.git"
+  },
+  "bugs": {
+    "url": "http://github.com/sagiegurari/simple-web-notification/issues"
+  },
+  "keywords": [
+    "web",
+    "notification"
+  ],
+  "main": "web-notification.js",
+  "directories": {
+    "test": "test/spec",
+    "example": "example"
+  },
+  "scripts": {
+    "test": "grunt test",
+    "clean": "grunt cleanup",
+    "lint": "grunt lint",
+    "docs": "grunt docs",
+    "format": "grunt format",
+    "build": "grunt build",
+    "jstest": "grunt jstest",
+    "debug": "mocha --debug-brk=5858 --no-timeouts --ui bdd --reporter spec --recursive ./test/spec",
+    "prepush": "npm run build",
+    "postpublish": "grunt post-publish",
+    "grunt": "grunt"
+  },
+  "devDependencies": {
+    "chai": "latest",
+    "grunt": "latest",
+    "grunt-cli": "latest",
+    "grunt-karma": "latest",
+    "husky": "latest",
+    "js-project-commons": "latest",
+    "karma": "latest",
+    "karma-cli": "latest",
+    "karma-coverage": "latest",
+    "karma-mocha": "latest",
+    "karma-phantomjs-launcher": "latest",
+    "karma-sinon-chai": "latest",
+    "lolex": "latest",
+    "mocha": "latest",
+    "phantomjs-prebuilt": "latest",
+    "sinon": "latest",
+    "sinon-chai": "latest"
+  }
+}

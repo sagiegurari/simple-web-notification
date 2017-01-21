@@ -1,0 +1,4 @@
+{
+  "extends": "./project/config/jshintrc-common.json",
+  "browser": true
+}

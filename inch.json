@@ -1,0 +1,14 @@
+{
+  "files": {
+    "included": [
+      "*.js",
+      "lib/**/*.js",
+      "tasks/**/*.js"
+    ],
+    "excluded": [
+      "**/Gruntfile.js",
+      "**/.eslintrc.js",
+      "**/stylelint.config.js"
+    ]
+  }
+}
