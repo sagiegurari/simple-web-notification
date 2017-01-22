@@ -1,3 +1,5 @@
+/*global module: false, define: false */
+
 /**
  * 'showNotification' callback.
  *
@@ -21,24 +23,27 @@
  * @memberof! webNotification
  * @alias webNotification.initWebNotification
  * @private
- * @param {Object} context - The root context (window/global/...)
+ * @param {Object} global - The root context (window/global/...)
  * @param {function} factory - Returns a new instance of the API
  */
-(function initWebNotification(context, factory) {
+(function initWebNotification(global, factory) {
     'use strict';
 
-    var webNotification = factory(context.Notification);
+    /*istanbul ignore next*/
+    var webNotification = factory(global.Notification || window.Notification);
 
     /*istanbul ignore next*/
-    if ((typeof context.define === 'function') && context.define.amd) {
-        context.define(function defineLib() {
+    if ((typeof define === 'function') && define.amd) {
+        define(function defineLib() {
             return webNotification;
         });
-    } else if ((typeof context.module === 'object') && context.module.exports) {
-        context.module.exports = webNotification;
+    } else if ((typeof module === 'object') && module.exports) {
+        module.exports = webNotification;
     } else {
-        context.webNotification = webNotification;
+        global.webNotification = webNotification;
     }
+
+    return webNotification;
 }(this, function initWebNotification(NotifyLib) {
     'use strict';
 
