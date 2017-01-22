@@ -17,7 +17,7 @@
 
 <a name="overview"></a>
 ## Overview
-The simple-web-notification is a simplified web notifications API.
+The simple-web-notification is a web notifications API which provides simplified API with automatic permission handling.
 
 It is using the HTML5-Desktop-Notifications library which provides a unified API for all browsers.
 
@@ -81,7 +81,7 @@ npm install --save simple-web-notification
 ## Limitations
 The web notifications API is not fully supported in all browsers.
 
-Please see [supported browser versions](http://caniuse.com/#feat=notifications) for more information on the official spec support and at [HTML5-Desktop-Notifications](https://github.com/ttsvetko/HTML5-Desktop-Notifications) for more browser specific API support.
+Please see [supported browser versions](http://caniuse.com/#feat=notifications) for more information on the official spec support.
 
 ## API Documentation
 See full docs at: [API Docs](docs/api.md)
@@ -94,7 +94,7 @@ See [contributing guide](.github/CONTRIBUTING.md)
 
 | Date        | Version | Description |
 | ----------- | ------- | ----------- |
-| 2017-01-22  | v1.0.1  | Maintenance |
+| 2017-01-22  | v1.0.2  | Maintenance |
 | 2017-01-22  | v1.0.0  | Official release |
 | 2017-01-22  | v0.0.2  | Initial release |
 
