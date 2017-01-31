@@ -1,6 +1,6 @@
 {
   "name": "simple-web-notification",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Web Notifications made easy.",
   "authors": [
     "Sagie Gur-Ari <sagiegurari@gmail.com>"
@@ -22,7 +22,6 @@
     "example",
     "target"
   ],
-  "dependencies": {
-    "html5-desktop-notifications2": "~3"
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }

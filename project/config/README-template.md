@@ -19,9 +19,7 @@
 ## Overview
 The {"gitdown": "gitinfo", "name": "name"} is a web notifications API which provides simplified API with automatic permission handling.
 
-It is using the HTML5-Desktop-Notifications library which provides a unified API for all browsers.
-
-See [W3 Specification](https://dvcs.w3.org/hg/notifications/raw-file/tip/Overview.html) and [HTML5-Desktop-Notifications](https://github.com/ttsvetko/HTML5-Desktop-Notifications) for more information.
+See [W3 Specification](https://dvcs.w3.org/hg/notifications/raw-file/tip/Overview.html) for more information.
 
 ## Demo
 [Live Demo](https://sagiegurari.github.io/simple-web-notification/)
@@ -31,7 +29,6 @@ See [W3 Specification](https://dvcs.w3.org/hg/notifications/raw-file/tip/Overvie
 In order to use the simplified web notification API you first must add the relevant dependencies:
 
 ```html
-<script type="text/javascript" src="html5-desktop-notifications2/dist/Notification.js"></script>
 <script type="text/javascript" src="web-notification.js"></script>
 ```
 
