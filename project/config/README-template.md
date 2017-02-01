@@ -17,7 +17,9 @@
 
 <a name="overview"></a>
 ## Overview
-The {"gitdown": "gitinfo", "name": "name"} is a web notifications API which provides simplified API with automatic permission handling.
+The {"gitdown": "gitinfo", "name": "name"} is a simplified web notifications API with automatic permissions support.
+
+This library requires no external dependencies, however the browser must support the Notification API or have a polyfill available.
 
 See [W3 Specification](https://dvcs.w3.org/hg/notifications/raw-file/tip/Overview.html) for more information.
 

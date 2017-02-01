@@ -17,7 +17,9 @@
 
 <a name="overview"></a>
 ## Overview
-The simple-web-notification is a web notifications API which provides simplified API with automatic permission handling.
+The simple-web-notification is a simplified web notifications API with automatic permissions support.
+
+This library requires no external dependencies, however the browser must support the Notification API or have a polyfill available.
 
 See [W3 Specification](https://dvcs.w3.org/hg/notifications/raw-file/tip/Overview.html) for more information.
 
@@ -91,6 +93,7 @@ See [contributing guide](.github/CONTRIBUTING.md)
 
 | Date        | Version | Description |
 | ----------- | ------- | ----------- |
+| 2017-02-01  | v1.0.4  | Maintenance |
 | 2017-01-31  | v1.0.3  | Removed polyfill dependency |
 | 2017-01-22  | v1.0.2  | Maintenance |
 | 2017-01-22  | v1.0.0  | Official release |
