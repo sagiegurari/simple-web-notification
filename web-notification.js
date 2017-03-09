@@ -25,14 +25,30 @@
  * @private
  * @param {Object} global - The root context (window/global/...)
  * @param {function} factory - Returns a new instance of the API
+ * @returns {Object} New instance of the API
  */
 (function initWebNotification(global, factory) {
     'use strict';
 
     /*istanbul ignore next*/
-    var webNotification = factory(global.Notification || window.Notification);
+    var NotificationAPI = global.Notification || window.Notification;
 
-    /*istanbul ignore next*/
+    var webNotification = factory(NotificationAPI);
+
+    /**
+     * Initializes the web notification API (only used for testing).
+     *
+     * @function
+     * @memberof! webNotification
+     * @alias webNotification.initWebNotificationFromContext
+     * @private
+     * @param {Object} context - The root context (window/global/...)
+     * @returns {Object} New instance of the API
+     */
+    webNotification.initWebNotificationFromContext = function (context) {
+        return initWebNotification(context, factory);
+    };
+
     if ((typeof define === 'function') && define.amd) {
         define(function defineLib() {
             return webNotification;
@@ -44,7 +60,7 @@
     }
 
     return webNotification;
-}(this, function initWebNotification(NotifyLib) {
+}(this, function initWebNotification(NotificationAPI) {
     'use strict';
 
     var webNotification = {};
@@ -56,7 +72,7 @@
      * @alias webNotification.lib
      * @private
      */
-    webNotification.lib = NotifyLib;
+    webNotification.lib = NotificationAPI;
 
     /**
      * True to enable automatic requesting of permissions if needed.
@@ -79,7 +95,7 @@
          * @returns {Boolean} True if permission is granted, else false
          */
         get: function getPermission() {
-            var permission = NotifyLib.permission;
+            var permission = NotificationAPI.permission;
 
             /**
              * True if permission is granted, else false.
@@ -149,7 +165,7 @@
             options.icon = '/favicon.ico';
         }
 
-        var notification = new NotifyLib(title, options);
+        var notification = new NotificationAPI(title, options);
 
         //add onclick handler
         if (options.onClick && notification) {
@@ -268,7 +284,7 @@
                 hideNotification = createAndDisplayNotification(title, options);
                 callback(null, hideNotification);
             } else if (webNotification.allowRequest) {
-                NotifyLib.requestPermission(function onRequestDone() {
+                NotificationAPI.requestPermission(function onRequestDone() {
                     if (isEnabled()) {
                         hideNotification = createAndDisplayNotification(title, options);
                         callback(null, hideNotification);

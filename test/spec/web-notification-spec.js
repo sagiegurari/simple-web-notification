@@ -29,15 +29,64 @@ describe('simple-web-notification', function () {
         window.webNotification.allowRequest = true;
     });
 
-    it('init test', function () {
-        assert.isObject(window.webNotification);
-        assert.isTrue(window.Notification.MOCK_NOTIFY);
-        assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
+    describe('showNotification tests', function () {
+        it('window', function () {
+            assert.isObject(window.webNotification);
+            assert.isFunction(window.webNotification.initWebNotificationFromContext);
+            assert.isFunction(window.webNotification.showNotification);
+            assert.isTrue(window.Notification.MOCK_NOTIFY);
+            assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
+        });
+
+        it('global', function () {
+            var global = {
+                Notification: window.Notification
+            };
+
+            window.webNotification.initWebNotificationFromContext(global);
+
+            assert.isObject(global.webNotification);
+            assert.isFunction(global.webNotification.showNotification);
+        });
+
+        it('define', function () {
+            var global = {
+                Notification: window.Notification
+            };
+
+            window.define = function (factory) {
+                var webNotification = factory();
+
+                assert.isObject(webNotification);
+                assert.isFunction(webNotification.showNotification);
+
+                delete window.define;
+            };
+            window.define.amd = true;
+
+            window.webNotification.initWebNotificationFromContext(global);
+        });
+
+        it('module', function () {
+            var global = {
+                Notification: window.Notification
+            };
+
+            window.module = {
+                exports: {}
+            };
+
+            window.webNotification.initWebNotificationFromContext(global);
+
+            assert.isFunction(window.module.exports.showNotification);
+
+            delete window.module;
+        });
     });
 
-    describe('showNotification tests', function () {
-        describe('showNotification allowed tests', function () {
-            it('showNotification all info test', function (done) {
+    describe('showNotification', function () {
+        describe('allowed', function () {
+            it('all info', function (done) {
                 assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
                 window.Notification.setAllowed(function (title, options) {
                     assert.equal(title, 'Example Notification');
@@ -55,7 +104,7 @@ describe('simple-web-notification', function () {
                 });
             });
 
-            it('showNotification with auto close test', function (done) {
+            it('auto close', function (done) {
                 assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
                 window.Notification.setAllowed(function (title, options) {
                     assert.equal(title, 'Example Notification');
@@ -75,7 +124,7 @@ describe('simple-web-notification', function () {
                 });
             });
 
-            it('showNotification no params test', function (done) {
+            it('no params', function (done) {
                 assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
                 window.Notification.setAllowed(emptyValuesValidation);
 
@@ -84,14 +133,14 @@ describe('simple-web-notification', function () {
                 });
             });
 
-            it('showNotification no input test', function () {
+            it('no input', function () {
                 assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
                 window.Notification.setAllowed(emptyValuesValidation);
 
                 window.webNotification.showNotification();
             });
 
-            it('showNotification too many args test', function (done) {
+            it('too many args', function (done) {
                 assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
                 window.Notification.setAllowed(emptyValuesValidation);
 
@@ -104,7 +153,7 @@ describe('simple-web-notification', function () {
                 }, 50);
             });
 
-            it('showNotification null info test', function (done) {
+            it('null info', function (done) {
                 assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
                 window.Notification.setAllowed(emptyValuesValidation);
 
@@ -113,7 +162,7 @@ describe('simple-web-notification', function () {
                 });
             });
 
-            it('showNotification no callback test', function (done) {
+            it('no callback', function (done) {
                 assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
                 window.Notification.setAllowed(function (title, options) {
                     assert.equal(title, 'Example Notification');
@@ -131,7 +180,7 @@ describe('simple-web-notification', function () {
                 setTimeout(done, 50);
             });
 
-            it('showNotification no title test', function (done) {
+            it('no title', function (done) {
                 assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
                 window.Notification.setAllowed(function (title, options) {
                     assert.equal(title, '');
@@ -148,7 +197,7 @@ describe('simple-web-notification', function () {
                 });
             });
 
-            it('showNotification with no icon test', function (done) {
+            it('with no icon', function (done) {
                 assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
                 window.Notification.setAllowed(function (title, options) {
                     assert.equal(title, 'Example Notification');
@@ -165,7 +214,7 @@ describe('simple-web-notification', function () {
                 });
             });
 
-            it('showNotification no options test', function (done) {
+            it('no options', function (done) {
                 assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
                 window.Notification.setAllowed(function (title, options) {
                     assert.equal(title, 'no options');
@@ -179,7 +228,7 @@ describe('simple-web-notification', function () {
                 });
             });
 
-            it('showNotification first time permissions test', function (done) {
+            it('first time permissions', function (done) {
                 assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
                 window.Notification.setNotAllowed(function (title, options) {
                     assert.equal(title, 'first time');
@@ -202,7 +251,7 @@ describe('simple-web-notification', function () {
                 });
             });
 
-            it('showNotification with onClick', function (done) {
+            it('onClick', function (done) {
                 assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
                 window.Notification.setAllowed(function (title, options) {
                     assert.equal(title, 'Example Notification');
@@ -221,8 +270,8 @@ describe('simple-web-notification', function () {
             });
         });
 
-        describe('showNotification not allowed tests', function () {
-            it('showNotification not allowed test', function (done) {
+        describe('not allowed', function () {
+            it('not allowed', function (done) {
                 assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
                 window.Notification.setNotAllowed();
 
@@ -231,7 +280,7 @@ describe('simple-web-notification', function () {
                 });
             });
 
-            it('showNotification not allowed and not allowed to ask permissions test', function (done) {
+            it('not allowed to ask permissions', function (done) {
                 assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
                 window.Notification.setNotAllowed();
                 window.webNotification.allowRequest = false;
