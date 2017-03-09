@@ -20,7 +20,7 @@
 A simplified web notification API.
 
 **Kind**: global namespace  
-**Author:** Sagie Gur-Ari  
+**Author**: Sagie Gur-Ari  
 
 * [webNotification](#webNotification) : <code>object</code>
     * [.allowRequest](#webNotification.allowRequest) : <code>Boolean</code>
@@ -32,13 +32,13 @@ A simplified web notification API.
 ### webNotification.allowRequest : <code>Boolean</code>
 True to enable automatic requesting of permissions if needed.
 
-**Access:** public  
+**Access**: public  
 <a name="webNotification.permissionGranted"></a>
 
 ### webNotification.permissionGranted
 True if permission is granted, else false.
 
-**Access:** public  
+**Access**: public  
 <a name="webNotification.showNotification"></a>
 
 ### webNotification.showNotification([title], [options], [callback])
@@ -46,7 +46,7 @@ Shows the notification based on the provided input.<br>
 The callback invoked will get an error object (in case of an error, null in
 case of no errors) and a 'hide' function which can be used to hide the notification.
 
-**Access:** public  
+**Access**: public  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
