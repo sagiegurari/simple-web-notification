@@ -1,7 +1,7 @@
 # simple-web-notification
 
 [![Bower Version](https://img.shields.io/bower/v/simple-web-notification.svg?style=flat)](https://github.com/sagiegurari/simple-web-notification/releases) [![NPM Version](http://img.shields.io/npm/v/simple-web-notification.svg?style=flat)](https://www.npmjs.org/package/simple-web-notification) [![Build Status](https://travis-ci.org/sagiegurari/simple-web-notification.svg)](http://travis-ci.org/sagiegurari/simple-web-notification) [![Coverage Status](https://coveralls.io/repos/sagiegurari/simple-web-notification/badge.svg)](https://coveralls.io/r/sagiegurari/simple-web-notification) [![bitHound Code](https://www.bithound.io/github/sagiegurari/simple-web-notification/badges/code.svg)](https://www.bithound.io/github/sagiegurari/simple-web-notification) [![Inline docs](http://inch-ci.org/github/sagiegurari/simple-web-notification.svg?branch=master)](http://inch-ci.org/github/sagiegurari/simple-web-notification)<br>
-[![License](https://img.shields.io/bower/l/simple-web-notification.svg)](https://github.com/sagiegurari/simple-web-notification/blob/master/LICENSE) [![Retire Status](http://retire.insecurity.today/api/image?uri=https://raw.githubusercontent.com/sagiegurari/simple-web-notification/master/bower.json)](http://retire.insecurity.today/api/image?uri=https://raw.githubusercontent.com/sagiegurari/simple-web-notification/master/bower.json)
+[![License](https://img.shields.io/bower/l/simple-web-notification.svg)](https://github.com/sagiegurari/simple-web-notification/blob/master/LICENSE) [![Known Vulnerabilities](https://snyk.io/test/github/sagiegurari/simple-web-notification/badge.svg)](https://snyk.io/test/github/sagiegurari/simple-web-notification) [![Retire Status](http://retire.insecurity.today/api/image?uri=https://raw.githubusercontent.com/sagiegurari/simple-web-notification/master/bower.json)](http://retire.insecurity.today/api/image?uri=https://raw.githubusercontent.com/sagiegurari/simple-web-notification/master/bower.json)
 
 > Web Notifications made easy
 
@@ -93,7 +93,7 @@ See [contributing guide](.github/CONTRIBUTING.md)
 
 | Date        | Version | Description |
 | ----------- | ------- | ----------- |
-| 2017-04-17  | v1.0.11  | Maintenance |
+| 2017-04-18  | v1.0.12 | Maintenance |
 | 2017-01-31  | v1.0.3  | Removed polyfill dependency |
 | 2017-01-22  | v1.0.2  | Maintenance |
 | 2017-01-22  | v1.0.0  | Official release |
