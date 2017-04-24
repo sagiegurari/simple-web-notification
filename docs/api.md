@@ -55,7 +55,7 @@ case of no errors) and a 'hide' function which can be used to hide the notificat
 | [options.icon] | <code>String</code> | <code>/favicon.ico</code> | The notification icon (defaults to the website favicon.ico) |
 | [options.autoClose] | <code>Number</code> |  | Auto closes the notification after the provided amount of millies (0 or undefined for no auto close) |
 | [options.onClick] | <code>function</code> |  | An optional onclick event handler |
-| [callback] | <code>[ShowNotificationCallback](#ShowNotificationCallback)</code> |  | Called after the show is handled. |
+| [callback] | [<code>ShowNotificationCallback</code>](#ShowNotificationCallback) |  | Called after the show is handled. |
 
 **Example**  
 ```js
