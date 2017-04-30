@@ -20,7 +20,9 @@
     "test",
     "tests",
     "example",
-    "target"
+    "target",
+    "./*.yml",
+    "./*rc"
   ],
   "dependencies": {},
   "devDependencies": {}
