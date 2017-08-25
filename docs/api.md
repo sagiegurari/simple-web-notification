@@ -55,10 +55,12 @@ case of no errors) and a 'hide' function which can be used to hide the notificat
 | [options.icon] | <code>String</code> | <code>/favicon.ico</code> | The notification icon (defaults to the website favicon.ico) |
 | [options.autoClose] | <code>Number</code> |  | Auto closes the notification after the provided amount of millies (0 or undefined for no auto close) |
 | [options.onClick] | <code>function</code> |  | An optional onclick event handler |
+| [options.serviceWorkerRegistration] | <code>Object</code> |  | Optional service worker registeration used to show the notification |
 | [callback] | [<code>ShowNotificationCallback</code>](#ShowNotificationCallback) |  | Called after the show is handled. |
 
 **Example**  
 ```js
+//show web notification when button is clicked
 $('.some-button').on('click', function onClick() {
   webNotification.showNotification('Example Notification', {
     body: 'Notification Text...',
@@ -79,6 +81,39 @@ $('.some-button').on('click', function onClick() {
       }, 5000);
     }
   });
+});
+
+//service worker example
+navigator.serviceWorker.register('service-worker.js').then(function(registration) {
+    $('.some-button').on('click', function onClick() {
+        webNotification.showNotification('Example Notification', {
+            serviceWorkerRegistration: registration,
+            body: 'Notification Text...',
+            icon: 'my-icon.ico',
+            actions: [
+                {
+                    action: 'Start',
+                    title: 'Start'
+                },
+                {
+                    action: 'Stop',
+                    title: 'Stop'
+                }
+            ],
+            autoClose: 4000 //auto close the notification after 4 seconds (you can manually close it via hide function)
+        }, function onShow(error, hide) {
+            if (error) {
+                window.alert('Unable to show notification: ' + error.message);
+            } else {
+                console.log('Notification Shown.');
+
+                setTimeout(function hideNotification() {
+                    console.log('Hiding notification....');
+                    hide(); //manually close the notification (you can skip this if you use the autoClose option)
+                }, 5000);
+            }
+        });
+    });
 });
 ```
 <a name="ShowNotificationCallback"></a>

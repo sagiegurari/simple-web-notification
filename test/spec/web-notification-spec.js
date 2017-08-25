@@ -268,6 +268,277 @@ describe('simple-web-notification', function () {
                     validShowValidation(error, hide);
                 });
             });
+
+            it('serviceWorkerRegistration valid', function (done) {
+                assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
+                window.Notification.setAllowed(function (title, options) {
+                    assert.equal(title, 'Example Notification');
+                    assert.equal(options.body, 'Notification Text...');
+                    assert.equal(options.icon, 'my-icon.ico');
+                });
+
+                var tag;
+
+                window.webNotification.showNotification('Example Notification', {
+                    body: 'Notification Text...',
+                    icon: 'my-icon.ico',
+                    serviceWorkerRegistration: {
+                        showNotification: function (title, options) {
+                            assert.equal(title, 'Example Notification');
+                            assert.equal(options.body, 'Notification Text...');
+                            assert.equal(options.icon, 'my-icon.ico');
+                            assert.isDefined(options.tag);
+
+                            tag = options.tag;
+
+                            return {
+                                then: function (callback) {
+                                    setTimeout(callback, 10);
+
+                                    return {
+                                        catch: function () {
+                                            return undefined;
+                                        }
+                                    };
+                                }
+                            };
+                        },
+                        getNotifications: function (options) {
+                            assert.equal(options.tag, tag);
+
+                            return {
+                                then: function (callback) {
+                                    setTimeout(function () {
+                                        callback([
+                                            {
+                                                close: function () {
+                                                    return undefined;
+                                                }
+                                            }
+                                        ]);
+                                    }, 10);
+
+                                    return {
+                                        catch: function (errorCB) {
+                                            assert.isFunction(errorCB);
+                                        }
+                                    };
+                                }
+                            };
+                        }
+                    }
+                }, function onShow(error, hide) {
+                    validShowValidation(error, hide);
+
+                    done();
+                });
+            });
+
+            it('serviceWorkerRegistration with tag', function (done) {
+                assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
+                window.Notification.setAllowed(function (title, options) {
+                    assert.equal(title, 'Example Notification');
+                    assert.equal(options.body, 'Notification Text...');
+                    assert.equal(options.icon, 'my-icon.ico');
+                    assert.equal(options.tag, '123');
+                });
+
+                window.webNotification.showNotification('Example Notification', {
+                    body: 'Notification Text...',
+                    icon: 'my-icon.ico',
+                    tag: '123',
+                    serviceWorkerRegistration: {
+                        showNotification: function (title, options) {
+                            assert.equal(title, 'Example Notification');
+                            assert.equal(options.body, 'Notification Text...');
+                            assert.equal(options.icon, 'my-icon.ico');
+                            assert.equal(options.tag, '123');
+
+                            return {
+                                then: function (callback) {
+                                    setTimeout(callback, 10);
+
+                                    return {
+                                        catch: function () {
+                                            return undefined;
+                                        }
+                                    };
+                                }
+                            };
+                        },
+                        getNotifications: function (options) {
+                            assert.equal(options.tag, '123');
+
+                            return {
+                                then: function (callback) {
+                                    setTimeout(function () {
+                                        callback([
+                                            {
+                                                close: function () {
+                                                    return undefined;
+                                                }
+                                            }
+                                        ]);
+                                    }, 10);
+
+                                    return {
+                                        catch: function (errorCB) {
+                                            assert.isFunction(errorCB);
+                                        }
+                                    };
+                                }
+                            };
+                        }
+                    }
+                }, function onShow(error, hide) {
+                    validShowValidation(error, hide);
+
+                    done();
+                });
+            });
+
+            it('serviceWorkerRegistration no notifications', function (done) {
+                assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
+                window.Notification.setAllowed(function (title, options) {
+                    assert.equal(title, 'Example Notification');
+                    assert.isDefined(options);
+                });
+
+                window.webNotification.showNotification('Example Notification', {
+                    body: 'Notification Text...',
+                    serviceWorkerRegistration: {
+                        showNotification: function (title, options) {
+                            assert.equal(title, 'Example Notification');
+                            assert.isDefined(options);
+
+                            return {
+                                then: function (callback) {
+                                    setTimeout(callback, 10);
+
+                                    return {
+                                        catch: function () {
+                                            return undefined;
+                                        }
+                                    };
+                                }
+                            };
+                        },
+                        getNotifications: function (options) {
+                            assert.isDefined(options.tag);
+
+                            return {
+                                then: function (callback) {
+                                    setTimeout(function () {
+                                        callback([]);
+                                    }, 10);
+
+                                    return {
+                                        catch: function (errorCB) {
+                                            assert.isFunction(errorCB);
+                                        }
+                                    };
+                                }
+                            };
+                        }
+                    }
+                }, function onShow(error, hide) {
+                    assert.isDefined(error);
+                    assert.isUndefined(hide);
+
+                    done();
+                });
+            });
+
+            it('serviceWorkerRegistration show catch', function (done) {
+                assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
+                window.Notification.setAllowed(function (title, options) {
+                    assert.equal(title, 'Example Notification');
+                    assert.isDefined(options);
+                });
+
+                window.webNotification.showNotification('Example Notification', {
+                    body: 'Notification Text...',
+                    serviceWorkerRegistration: {
+                        showNotification: function (title, options) {
+                            assert.equal(title, 'Example Notification');
+                            assert.isDefined(options);
+
+                            return {
+                                then: function (validCB) {
+                                    assert.isFunction(validCB);
+
+                                    return {
+                                        catch: function (errorCB) {
+                                            setTimeout(function () {
+                                                errorCB(new Error('test'));
+                                            }, 10);
+                                        }
+                                    };
+                                }
+                            };
+                        }
+                    }
+                }, function onShow(error, hide) {
+                    assert.isDefined(error);
+                    assert.equal(error.message, 'test');
+                    assert.isUndefined(hide);
+
+                    done();
+                });
+            });
+
+            it('serviceWorkerRegistration get notifications catch', function (done) {
+                assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
+                window.Notification.setAllowed(function (title, options) {
+                    assert.equal(title, 'Example Notification');
+                    assert.isDefined(options);
+                });
+
+                window.webNotification.showNotification('Example Notification', {
+                    body: 'Notification Text...',
+                    serviceWorkerRegistration: {
+                        showNotification: function (title, options) {
+                            assert.equal(title, 'Example Notification');
+                            assert.isDefined(options);
+
+                            return {
+                                then: function (callback) {
+                                    setTimeout(callback, 10);
+
+                                    return {
+                                        catch: function () {
+                                            return undefined;
+                                        }
+                                    };
+                                }
+                            };
+                        },
+                        getNotifications: function (options) {
+                            assert.isDefined(options.tag);
+
+                            return {
+                                then: function (validCB) {
+                                    assert.isFunction(validCB);
+
+                                    return {
+                                        catch: function (errorCB) {
+                                            setTimeout(function () {
+                                                errorCB(new Error('test'));
+                                            }, 10);
+                                        }
+                                    };
+                                }
+                            };
+                        }
+                    }
+                }, function onShow(error, hide) {
+                    assert.isDefined(error);
+                    assert.equal(error.message, 'test');
+                    assert.isUndefined(hide);
+
+                    done();
+                });
+            });
         });
 
         describe('not allowed', function () {

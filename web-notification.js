@@ -63,6 +63,8 @@
 }(this, function initWebNotification(NotificationAPI) {
     'use strict';
 
+    var tagCounter = 0;
+
     var webNotification = {};
 
     /**
@@ -152,9 +154,10 @@
      * @param {String} [options.icon=/favicon.ico] - The notification icon (defaults to the website favicon.ico)
      * @param {Number} [options.autoClose] - Auto closes the notification after the provided amount of millies (0 or undefined for no auto close)
      * @param {function} [options.onClick] - An optional onclick event handler
-     * @returns {function} The hide notification function
+     * @param {Object} [options.serviceWorkerRegistration] - Optional service worker registeration used to show the notification
+     * @param {ShowNotificationCallback} callback - Invoked with either an error or the hide notification function
      */
-    var createAndDisplayNotification = function (title, options) {
+    var createAndDisplayNotification = function (title, options, callback) {
         var autoClose = 0;
         if (options.autoClose && (typeof options.autoClose === 'number')) {
             autoClose = options.autoClose;
@@ -165,22 +168,47 @@
             options.icon = '/favicon.ico';
         }
 
-        var notification = new NotificationAPI(title, options);
+        var onNotification = function (notification) {
+            //add onclick handler
+            if (options.onClick && notification) {
+                notification.onclick = options.onClick;
+            }
 
-        //add onclick handler
-        if (options.onClick && notification) {
-            notification.onclick = options.onClick;
-        }
+            var hideNotification = function () {
+                notification.close();
+            };
 
-        var hideNotification = function () {
-            notification.close();
+            if (autoClose) {
+                setTimeout(hideNotification, autoClose);
+            }
+
+            callback(null, hideNotification);
         };
 
-        if (autoClose) {
-            setTimeout(hideNotification, autoClose);
-        }
+        var serviceWorkerRegistration = options.serviceWorkerRegistration;
+        if (serviceWorkerRegistration) {
+            delete options.serviceWorkerRegistration;
 
-        return hideNotification;
+            if (!options.tag) {
+                tagCounter++;
+                options.tag = 'webnotification-' + Date.now() + '-' + tagCounter;
+            }
+            var tag = options.tag;
+
+            serviceWorkerRegistration.showNotification(title, options).then(function onCreate() {
+                serviceWorkerRegistration.getNotifications({
+                    tag: tag
+                }).then(function notificationsFetched(notifications) {
+                    if (notifications && notifications.length) {
+                        onNotification(notifications[0]);
+                    } else {
+                        callback(new Error('Unable to find notification.'));
+                    }
+                }).catch(callback);
+            }).catch(callback);
+        } else {
+            onNotification(new NotificationAPI(title, options));
+        }
     };
 
     /**
@@ -241,9 +269,11 @@
      * @param {String} [options.icon=/favicon.ico] - The notification icon (defaults to the website favicon.ico)
      * @param {Number} [options.autoClose] - Auto closes the notification after the provided amount of millies (0 or undefined for no auto close)
      * @param {function} [options.onClick] - An optional onclick event handler
+     * @param {Object} [options.serviceWorkerRegistration] - Optional service worker registeration used to show the notification
      * @param {ShowNotificationCallback} [callback] - Called after the show is handled.
      * @example
      * ```js
+     * //show web notification when button is clicked
      * $('.some-button').on('click', function onClick() {
      *   webNotification.showNotification('Example Notification', {
      *     body: 'Notification Text...',
@@ -265,6 +295,39 @@
      *     }
      *   });
      * });
+     *
+     * //service worker example
+     * navigator.serviceWorker.register('service-worker.js').then(function(registration) {
+     *     $('.some-button').on('click', function onClick() {
+     *         webNotification.showNotification('Example Notification', {
+     *             serviceWorkerRegistration: registration,
+     *             body: 'Notification Text...',
+     *             icon: 'my-icon.ico',
+     *             actions: [
+     *                 {
+     *                     action: 'Start',
+     *                     title: 'Start'
+     *                 },
+     *                 {
+     *                     action: 'Stop',
+     *                     title: 'Stop'
+     *                 }
+     *             ],
+     *             autoClose: 4000 //auto close the notification after 4 seconds (you can manually close it via hide function)
+     *         }, function onShow(error, hide) {
+     *             if (error) {
+     *                 window.alert('Unable to show notification: ' + error.message);
+     *             } else {
+     *                 console.log('Notification Shown.');
+     *
+     *                 setTimeout(function hideNotification() {
+     *                     console.log('Hiding notification....');
+     *                     hide(); //manually close the notification (you can skip this if you use the autoClose option)
+     *                 }, 5000);
+     *             }
+     *         });
+     *     });
+     * });
      * ```
      */
     webNotification.showNotification = function () {
@@ -279,15 +342,12 @@
             var title = data.title;
             var options = data.options;
 
-            var hideNotification = null;
             if (isEnabled()) {
-                hideNotification = createAndDisplayNotification(title, options);
-                callback(null, hideNotification);
+                createAndDisplayNotification(title, options, callback);
             } else if (webNotification.allowRequest) {
                 NotificationAPI.requestPermission(function onRequestDone() {
                     if (isEnabled()) {
-                        hideNotification = createAndDisplayNotification(title, options);
-                        callback(null, hideNotification);
+                        createAndDisplayNotification(title, options, callback);
                     } else {
                         callback(new Error('Notifications are not enabled.'), null);
                     }
