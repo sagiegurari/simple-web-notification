@@ -129,7 +129,7 @@ See [contributing guide](.github/CONTRIBUTING.md)
 
 | Date        | Version | Description |
 | ----------- | ------- | ----------- |
-| 2018-06-14  | v1.0.25 | Maintenance |
+| 2018-06-14  | v1.0.26 | Better error detection on chrome mobile #4 |
 | 2017-08-25  | v1.0.21 | Support service worker web notifications |
 | 2017-01-31  | v1.0.3  | Removed polyfill dependency |
 | 2017-01-22  | v1.0.0  | Official release |
