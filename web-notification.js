@@ -207,7 +207,17 @@
                 }).catch(callback);
             }).catch(callback);
         } else {
-            onNotification(new NotificationAPI(title, options));
+            var instance;
+            try {
+                instance = new NotificationAPI(title, options);
+            } catch (error) {
+                callback(error);
+            }
+
+            //in case of no errors
+            if (instance) {
+                onNotification(instance);
+            }
         }
     };
 

@@ -269,6 +269,23 @@ describe('simple-web-notification', function () {
                 });
             });
 
+            it('error on new', function (done) {
+                assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
+                var mockNotification = window.Notification;
+                window.Notification = function () {
+                    throw new Error('test');
+                };
+
+                window.webNotification.showNotification('Example Notification', {
+                    body: 'Notification Text...',
+                    icon: 'my-icon.ico'
+                }, function onShow(error, hide) {
+                    window.Notification = mockNotification;
+
+                    errorValidation(error, hide || null, done);
+                });
+            });
+
             it('serviceWorkerRegistration valid', function (done) {
                 assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
                 window.Notification.setAllowed(function (title, options) {

@@ -1,6 +1,14 @@
 /*global console: false */
 
 $(function onLoad() {
+    var serviceWorkerRegistration;
+
+    if (navigator.serviceWorker) {
+        navigator.serviceWorker.register('service-worker.js').then(function (registration) {
+        serviceWorkerRegistration = registration;
+    });
+    }
+
     var $title = $('#title');
     var $message = $('#message');
     var $button = $('.btn');
@@ -10,6 +18,7 @@ $(function onLoad() {
 
     $button.on('click', function onClick() {
         webNotification.showNotification($title.val(), {
+            serviceWorkerRegistration: serviceWorkerRegistration,
             body: $message.val(),
             onClick: function onNotificationClicked() {
                 console.log('Notification clicked.');
