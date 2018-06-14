@@ -1,5 +1,6 @@
 | Date        | Version | Description |
 | ----------- | ------- | ----------- |
+| 2018-06-14  | v1.0.27 | Maintenance |
 | 2018-06-14  | v1.0.26 | Better error detection on chrome mobile #4 |
 | 2017-08-25  | v1.0.21 | Support service worker web notifications |
 | 2017-01-31  | v1.0.3  | Removed polyfill dependency |

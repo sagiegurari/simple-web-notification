@@ -5,8 +5,8 @@ $(function onLoad() {
 
     if (navigator.serviceWorker) {
         navigator.serviceWorker.register('service-worker.js').then(function (registration) {
-        serviceWorkerRegistration = registration;
-    });
+            serviceWorkerRegistration = registration;
+        });
     }
 
     var $title = $('#title');
