@@ -1,6 +1,6 @@
 {
   "name": "simple-web-notification",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "description": "Web Notifications made easy.",
   "author": {
     "name": "Sagie Gur-Ari",
@@ -45,14 +45,13 @@
     "husky": "latest",
     "js-project-commons": "latest",
     "karma": "latest",
+    "karma-chrome-launcher": "latest",
     "karma-cli": "latest",
     "karma-coverage": "latest",
     "karma-mocha": "latest",
-    "karma-phantomjs-launcher": "latest",
     "karma-sinon-chai": "latest",
     "lolex": "latest",
     "mocha": "latest",
-    "phantomjs-prebuilt": "latest",
     "sinon": "latest",
     "sinon-chai": "latest"
   }
