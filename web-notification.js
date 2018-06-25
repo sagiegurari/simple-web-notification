@@ -279,7 +279,7 @@
      * @memberof! webNotification
      * @alias webNotification.requestPermission
      * @public
-     * @param {PermissionsRequestCallback} [callback] - Called with the permissions result (true enabled, false disabled)
+     * @param {PermissionsRequestCallback} callback - Called with the permissions result (true enabled, false disabled)
      * @example
      * ```js
      * //manually ask for notification permissions (invoked automatically if needed and allowRequest=true)

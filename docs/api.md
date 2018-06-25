@@ -28,7 +28,7 @@ A simplified web notification API.
 * [webNotification](#webNotification) : <code>object</code>
     * [.allowRequest](#webNotification.allowRequest) : <code>Boolean</code>
     * [.permissionGranted](#webNotification.permissionGranted)
-    * [.requestPermission([callback])](#webNotification.requestPermission)
+    * [.requestPermission(callback)](#webNotification.requestPermission)
     * [.showNotification([title], [options], [callback])](#webNotification.showNotification)
 
 <a name="webNotification.allowRequest"></a>
@@ -45,14 +45,14 @@ True if permission is granted, else false.
 **Access**: public  
 <a name="webNotification.requestPermission"></a>
 
-### webNotification.requestPermission([callback])
+### webNotification.requestPermission(callback)
 Triggers the request permissions dialog in case permissions were not already granted.
 
 **Access**: public  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [callback] | [<code>PermissionsRequestCallback</code>](#PermissionsRequestCallback) | Called with the permissions result (true enabled, false disabled) |
+| callback | [<code>PermissionsRequestCallback</code>](#PermissionsRequestCallback) | Called with the permissions result (true enabled, false disabled) |
 
 **Example**  
 ```js
@@ -163,6 +163,5 @@ navigator.serviceWorker.register('service-worker.js').then(function(registration
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [error] | <code>error</code> | The error object in case of any error |
-| [hide] | <code>function</code> | The hide notification function |
+| granted | <code>Boolean</code> | True if permission is granted, else false |
 
