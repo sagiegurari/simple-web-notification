@@ -12,8 +12,7 @@
  * 'requestPermission' callback.
  *
  * @callback PermissionsRequestCallback
- * @param {error} [error] - The error object in case of any error
- * @param {function} [hide] - The hide notification function
+ * @param {Boolean} granted - True if permission is granted, else false
  */
 
 /**
