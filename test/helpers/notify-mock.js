@@ -1,6 +1,10 @@
 window.Notification = (function Notification() {
     'use strict';
 
+    var noop = function () {
+            return undefined;
+    };
+
     var permissionInfo = {
         value: null
     };
@@ -8,7 +12,8 @@ window.Notification = (function Notification() {
     var oncePermission;
 
     var Lib = function (title, options) {
-        Lib.validateNotification(title, options);
+        var validateNotification = Lib.validateNotification || noop;
+        validateNotification(title, options);
 
         var self = this;
         self.close = function () {
@@ -28,6 +33,12 @@ window.Notification = (function Notification() {
     });
 
     Lib.requestPermission = function (callback) {
+        if (Lib.errorOnPermission) {
+            setTimeout(function () {
+                callback(new Error('test'));
+            }, 5);
+        }
+
         if (oncePermission) {
             oncePermission();
             oncePermission = null;
@@ -37,9 +48,7 @@ window.Notification = (function Notification() {
     };
 
     Lib.setValidationNotification = function (validateNotification) {
-        Lib.validateNotification = validateNotification || function noop() {
-            return undefined;
-        };
+        Lib.validateNotification = validateNotification || noop;
     };
 
     Lib.setAllowed = function (validateNotification) {

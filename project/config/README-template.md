@@ -62,7 +62,7 @@ $('.some-button').on('click', function onClick() {
 
 In case you wish to use service worker web notifications, you must provide the serviceWorkerRegistration in the options as follows:
 
-````js
+```js
 navigator.serviceWorker.register('service-worker.js').then(function(registration) {
     $('.some-button').on('click', function onClick() {
         webNotification.showNotification('Example Notification', {
@@ -94,7 +94,21 @@ navigator.serviceWorker.register('service-worker.js').then(function(registration
         });
     });
 });
-````
+```
+
+In case you wish to invoke the permissions API manually you can use the webNotification.requestPermission function.<br>
+This function triggers the request permissions dialog in case permissions were not already granted.
+
+```js
+//manually ask for notification permissions (invoked automatically if needed and allowRequest=true)
+webNotification.requestPermission(function onRequest(granted) {
+    if (granted) {
+        console.log('Permission Granted.');
+    } else {
+        console.log('Permission Not Granted.');
+    }
+});
+```
 
 When using an AMD loader (such as RequireJS) or CommonJS type loader, the webNotification object is not automatically defined on the window scope.
 

@@ -12,6 +12,9 @@
 <dt><a href="#ShowNotificationCallback">ShowNotificationCallback</a> : <code>function</code></dt>
 <dd><p>&#39;showNotification&#39; callback.</p>
 </dd>
+<dt><a href="#PermissionsRequestCallback">PermissionsRequestCallback</a> : <code>function</code></dt>
+<dd><p>&#39;requestPermission&#39; callback.</p>
+</dd>
 </dl>
 
 <a name="webNotification"></a>
@@ -25,6 +28,7 @@ A simplified web notification API.
 * [webNotification](#webNotification) : <code>object</code>
     * [.allowRequest](#webNotification.allowRequest) : <code>Boolean</code>
     * [.permissionGranted](#webNotification.permissionGranted)
+    * [.requestPermission([callback])](#webNotification.requestPermission)
     * [.showNotification([title], [options], [callback])](#webNotification.showNotification)
 
 <a name="webNotification.allowRequest"></a>
@@ -39,6 +43,28 @@ True to enable automatic requesting of permissions if needed.
 True if permission is granted, else false.
 
 **Access**: public  
+<a name="webNotification.requestPermission"></a>
+
+### webNotification.requestPermission([callback])
+Triggers the request permissions dialog in case permissions were not already granted.
+
+**Access**: public  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [callback] | [<code>PermissionsRequestCallback</code>](#PermissionsRequestCallback) | Called with the permissions result (true enabled, false disabled) |
+
+**Example**  
+```js
+//manually ask for notification permissions (invoked automatically if needed and allowRequest=true)
+webNotification.requestPermission(function onRequest(granted) {
+ if (granted) {
+     console.log('Permission Granted.');
+ } else {
+     console.log('Permission Not Granted.');
+ }
+});
+```
 <a name="webNotification.showNotification"></a>
 
 ### webNotification.showNotification([title], [options], [callback])
@@ -120,6 +146,18 @@ navigator.serviceWorker.register('service-worker.js').then(function(registration
 
 ## ShowNotificationCallback : <code>function</code>
 'showNotification' callback.
+
+**Kind**: global typedef  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [error] | <code>error</code> | The error object in case of any error |
+| [hide] | <code>function</code> | The hide notification function |
+
+<a name="PermissionsRequestCallback"></a>
+
+## PermissionsRequestCallback : <code>function</code>
+'requestPermission' callback.
 
 **Kind**: global typedef  
 

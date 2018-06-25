@@ -9,6 +9,14 @@
  */
 
 /**
+ * 'requestPermission' callback.
+ *
+ * @callback PermissionsRequestCallback
+ * @param {error} [error] - The error object in case of any error
+ * @param {function} [hide] - The hide notification function
+ */
+
+/**
  * A simplified web notification API.
  *
  * @name webNotification
@@ -266,6 +274,38 @@
     };
 
     /**
+     * Triggers the request permissions dialog in case permissions were not already granted.
+     *
+     * @function
+     * @memberof! webNotification
+     * @alias webNotification.requestPermission
+     * @public
+     * @param {PermissionsRequestCallback} [callback] - Called with the permissions result (true enabled, false disabled)
+     * @example
+     * ```js
+     * //manually ask for notification permissions (invoked automatically if needed and allowRequest=true)
+     * webNotification.requestPermission(function onRequest(granted) {
+     *  if (granted) {
+     *      console.log('Permission Granted.');
+     *  } else {
+     *      console.log('Permission Not Granted.');
+     *  }
+     * });
+     * ```
+     */
+    webNotification.requestPermission = function (callback) {
+        if (callback && typeof callback === 'function') {
+            if (isEnabled()) {
+                callback(true);
+            } else {
+                NotificationAPI.requestPermission(function onRequestDone() {
+                    callback(isEnabled());
+                });
+            }
+        }
+    };
+
+    /**
      * Shows the notification based on the provided input.<br>
      * The callback invoked will get an error object (in case of an error, null in
      * case of no errors) and a 'hide' function which can be used to hide the notification.
@@ -352,19 +392,13 @@
             var title = data.title;
             var options = data.options;
 
-            if (isEnabled()) {
-                createAndDisplayNotification(title, options, callback);
-            } else if (webNotification.allowRequest) {
-                NotificationAPI.requestPermission(function onRequestDone() {
-                    if (isEnabled()) {
-                        createAndDisplayNotification(title, options, callback);
-                    } else {
-                        callback(new Error('Notifications are not enabled.'), null);
-                    }
-                });
-            } else {
-                callback(new Error('Notifications are not enabled.'), null);
-            }
+            webNotification.requestPermission(function onRequestDone(granted) {
+                if (granted) {
+                    createAndDisplayNotification(title, options, callback);
+                } else {
+                    callback(new Error('Notifications are not enabled.'), null);
+                }
+            });
         }
     };
 

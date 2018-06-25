@@ -84,6 +84,58 @@ describe('simple-web-notification', function () {
         });
     });
 
+    describe('requestPermission', function () {
+        it('no callback', function () {
+            assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
+            window.Notification.errorOnPermission = true;
+
+            window.webNotification.requestPermission();
+
+            window.Notification.errorOnPermission = false;
+        });
+
+        it('callback not a function', function () {
+            assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
+            window.Notification.errorOnPermission = true;
+
+            window.webNotification.requestPermission(true);
+
+            window.Notification.errorOnPermission = false;
+        });
+
+        it('allowed', function (done) {
+            assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
+            window.Notification.setAllowed();
+
+            window.webNotification.requestPermission(function (granted) {
+                assert.isTrue(granted);
+                done();
+            });
+        });
+
+        it('not allowed', function (done) {
+            assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
+            window.Notification.setNotAllowed();
+
+            window.webNotification.requestPermission(function (granted) {
+                assert.isFalse(granted);
+                done();
+            });
+        });
+
+        it('error', function (done) {
+            assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
+            window.Notification.errorOnPermission = true;
+
+            window.webNotification.requestPermission(function (granted) {
+                assert.isFalse(granted);
+                done();
+            });
+
+            window.Notification.errorOnPermission = false;
+        });
+    });
+
     describe('showNotification', function () {
         describe('allowed', function () {
             it('all info', function (done) {
