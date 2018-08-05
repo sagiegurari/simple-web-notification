@@ -1,7 +1,6 @@
 # simple-web-notification
 
-[![Bower Version](https://img.shields.io/bower/v/simple-web-notification.svg?style=flat)](https://github.com/sagiegurari/simple-web-notification/releases) [![NPM Version](http://img.shields.io/npm/v/simple-web-notification.svg?style=flat)](https://www.npmjs.org/package/simple-web-notification) [![Build Status](https://travis-ci.org/sagiegurari/simple-web-notification.svg)](http://travis-ci.org/sagiegurari/simple-web-notification) [![Coverage Status](https://coveralls.io/repos/sagiegurari/simple-web-notification/badge.svg)](https://coveralls.io/r/sagiegurari/simple-web-notification) [![Known Vulnerabilities](https://snyk.io/test/github/sagiegurari/simple-web-notification/badge.svg)](https://snyk.io/test/github/sagiegurari/simple-web-notification) [![Inline docs](http://inch-ci.org/github/sagiegurari/simple-web-notification.svg?branch=master)](http://inch-ci.org/github/sagiegurari/simple-web-notification)<br>
-[![License](https://img.shields.io/bower/l/simple-web-notification.svg)](https://github.com/sagiegurari/simple-web-notification/blob/master/LICENSE)
+[![NPM Version](http://img.shields.io/npm/v/simple-web-notification.svg?style=flat)](https://www.npmjs.org/package/simple-web-notification) [![Build Status](https://travis-ci.org/sagiegurari/simple-web-notification.svg)](http://travis-ci.org/sagiegurari/simple-web-notification) [![Coverage Status](https://coveralls.io/repos/sagiegurari/simple-web-notification/badge.svg)](https://coveralls.io/r/sagiegurari/simple-web-notification) [![Known Vulnerabilities](https://snyk.io/test/github/sagiegurari/simple-web-notification/badge.svg)](https://snyk.io/test/github/sagiegurari/simple-web-notification) [![Inline docs](http://inch-ci.org/github/sagiegurari/simple-web-notification.svg?branch=master)](http://inch-ci.org/github/sagiegurari/simple-web-notification) [![License](https://img.shields.io/npm/l/simple-web-notification.svg?style=flat)](https://github.com/sagiegurari/simple-web-notification/blob/master/LICENSE)
 
 > Web Notifications made easy
 
@@ -114,16 +113,16 @@ When using an AMD loader (such as RequireJS) or CommonJS type loader, the webNot
 
 <a name="installation"></a>
 ## Installation
-Run bower install in your project as follows:
-
-```sh
-bower install simple-web-notification --save
-```
-
-Or if you are using NPM to download client libraries, you can install it as follows:
+Run npm install in your project as follows:
 
 ```sh
 npm install --save simple-web-notification
+```
+
+Or if you are using bower, you can install it as follows:
+
+```sh
+bower install simple-web-notification --save
 ```
 
 <a name="limitations"></a>
@@ -143,7 +142,7 @@ See [contributing guide](.github/CONTRIBUTING.md)
 
 | Date        | Version | Description |
 | ----------- | ------- | ----------- |
-| 2018-06-25  | v1.0.29 | Maintenance |
+| 2018-08-05  | v1.0.30 | Maintenance |
 | 2018-06-25  | v1.0.28 | Expose webNotification.requestPermission #5 |
 | 2018-06-14  | v1.0.26 | Better error detection on chrome mobile #4 |
 | 2017-08-25  | v1.0.21 | Support service worker web notifications |
