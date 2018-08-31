@@ -1,6 +1,6 @@
 | Date        | Version | Description |
 | ----------- | ------- | ----------- |
-| 2018-08-05  | v1.0.30 | Maintenance |
+| 2018-08-31  | v1.0.31 | Maintenance |
 | 2018-06-25  | v1.0.28 | Expose webNotification.requestPermission #5 |
 | 2018-06-14  | v1.0.26 | Better error detection on chrome mobile #4 |
 | 2017-08-25  | v1.0.21 | Support service worker web notifications |
