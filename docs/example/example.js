@@ -1,6 +1,6 @@
 /*global console: false */
 
-$(function onLoad() {
+document.addEventListener('DOMContentLoaded', function onLoad() {
     var serviceWorkerRegistration;
 
     if (navigator.serviceWorker) {
@@ -9,17 +9,17 @@ $(function onLoad() {
         });
     }
 
-    var $title = $('#title');
-    var $message = $('#message');
-    var $button = $('.btn');
+    var titleElement = document.getElementById('title');
+    var messageElement = document.getElementById('message');
+    var buttonElement = document.querySelector('.btn');
 
-    $title.val('Example Notification');
-    $message.val('This is some notification text.');
+    titleElement.value = 'Example Notification';
+    messageElement.value = 'This is some notification text.';
 
-    $button.on('click', function onClick() {
-        webNotification.showNotification($title.val(), {
+    buttonElement.addEventListener('click', function onClick() {
+        webNotification.showNotification(titleElement.value, {
             serviceWorkerRegistration: serviceWorkerRegistration,
-            body: $message.val(),
+            body: messageElement.value,
             onClick: function onNotificationClicked() {
                 console.log('Notification clicked.');
             },

@@ -36,7 +36,7 @@ In order to use the simplified web notification API you first must add the relev
 Now you can use the API anywhere in your application, for example:
 
 ```js
-$('.some-button').on('click', function onClick() {
+document.querySelector('.some-button').addEventListener('click', function onClick() {
     webNotification.showNotification('Example Notification', {
         body: 'Notification Text...',
         icon: 'my-icon.ico',
@@ -63,7 +63,7 @@ In case you wish to use service worker web notifications, you must provide the s
 
 ```js
 navigator.serviceWorker.register('service-worker.js').then(function(registration) {
-    $('.some-button').on('click', function onClick() {
+    document.querySelector('.some-button').addEventListener('click', function onClick() {
         webNotification.showNotification('Example Notification', {
             serviceWorkerRegistration: registration,
             body: 'Notification Text...',

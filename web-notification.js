@@ -323,7 +323,7 @@
      * @example
      * ```js
      * //show web notification when button is clicked
-     * $('.some-button').on('click', function onClick() {
+     * document.querySelector('.some-button').addEventListener('click', function onClick() {
      *   webNotification.showNotification('Example Notification', {
      *     body: 'Notification Text...',
      *     icon: 'my-icon.ico',
@@ -347,7 +347,7 @@
      *
      * //service worker example
      * navigator.serviceWorker.register('service-worker.js').then(function(registration) {
-     *     $('.some-button').on('click', function onClick() {
+     *     document.querySelector('.some-button').addEventListener('click', function onClick() {
      *         webNotification.showNotification('Example Notification', {
      *             serviceWorkerRegistration: registration,
      *             body: 'Notification Text...',

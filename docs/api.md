@@ -87,7 +87,7 @@ case of no errors) and a 'hide' function which can be used to hide the notificat
 **Example**  
 ```js
 //show web notification when button is clicked
-$('.some-button').on('click', function onClick() {
+document.querySelector('.some-button').addEventListener('click', function onClick() {
   webNotification.showNotification('Example Notification', {
     body: 'Notification Text...',
     icon: 'my-icon.ico',
@@ -111,7 +111,7 @@ $('.some-button').on('click', function onClick() {
 
 //service worker example
 navigator.serviceWorker.register('service-worker.js').then(function(registration) {
-    $('.some-button').on('click', function onClick() {
+    document.querySelector('.some-button').addEventListener('click', function onClick() {
         webNotification.showNotification('Example Notification', {
             serviceWorkerRegistration: registration,
             body: 'Notification Text...',
