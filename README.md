@@ -142,7 +142,7 @@ See [contributing guide](.github/CONTRIBUTING.md)
 
 | Date        | Version | Description |
 | ----------- | ------- | ----------- |
-| 2018-08-31  | v1.0.31 | Maintenance |
+| 2019-02-08  | v1.0.32 | Maintenance |
 | 2018-06-25  | v1.0.28 | Expose webNotification.requestPermission #5 |
 | 2018-06-14  | v1.0.26 | Better error detection on chrome mobile #4 |
 | 2017-08-25  | v1.0.21 | Support service worker web notifications |

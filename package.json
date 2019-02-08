@@ -1,6 +1,6 @@
 {
   "name": "simple-web-notification",
-  "version": "1.0.31",
+  "version": "1.0.32",
   "description": "Web Notifications made easy.",
   "author": {
     "name": "Sagie Gur-Ari",
@@ -32,10 +32,13 @@
     "format": "grunt format",
     "build": "grunt build",
     "jstest": "grunt jstest",
-    "debug": "mocha --debug-brk=5858 --no-timeouts --ui bdd --reporter spec --recursive ./test/spec",
-    "prepush": "npm run build",
     "postpublish": "grunt post-publish",
     "grunt": "grunt"
+  },
+  "husky": {
+    "hooks": {
+      "prepush": "npm run build"
+    }
   },
   "devDependencies": {
     "chai": "latest",
