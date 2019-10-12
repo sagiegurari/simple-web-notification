@@ -1,4 +1,4 @@
-/*global describe: false, assert: false, it: false, beforeEach: false */
+/*global assert: false */
 
 describe('simple-web-notification', function () {
     'use strict';
