@@ -1,5 +1,6 @@
 | Date        | Version | Description |
 | ----------- | ------- | ----------- |
+| 2020-05-11  | v2.0.0  | Migrate to github actions, upgrade minimal node version and remove bower |
 | 2019-02-08  | v1.0.32 | Maintenance |
 | 2018-06-25  | v1.0.28 | Expose webNotification.requestPermission #5 |
 | 2018-06-14  | v1.0.26 | Better error detection on chrome mobile #4 |

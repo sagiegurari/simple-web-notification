@@ -1,7 +1,7 @@
 /*global console: false */
 
 document.addEventListener('DOMContentLoaded', function onLoad() {
-    var serviceWorkerRegistration;
+    let serviceWorkerRegistration;
 
     if (navigator.serviceWorker) {
         navigator.serviceWorker.register('service-worker.js').then(function (registration) {
@@ -9,9 +9,9 @@ document.addEventListener('DOMContentLoaded', function onLoad() {
         });
     }
 
-    var titleElement = document.getElementById('title');
-    var messageElement = document.getElementById('message');
-    var buttonElement = document.querySelector('.btn');
+    const titleElement = document.getElementById('title');
+    const messageElement = document.getElementById('message');
+    const buttonElement = document.querySelector('.btn');
 
     titleElement.value = 'Example Notification';
     messageElement.value = 'This is some notification text.';

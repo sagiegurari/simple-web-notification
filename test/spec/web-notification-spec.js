@@ -3,13 +3,13 @@
 describe('simple-web-notification', function () {
     'use strict';
 
-    var emptyValuesValidation = function (title, options) {
+    const emptyValuesValidation = function (title, options) {
         assert.equal(title, '');
         assert.deepEqual(options, {
             icon: '/favicon.ico'
         });
     };
-    var validShowValidation = function (error, hide, done) {
+    const validShowValidation = function (error, hide, done) {
         assert.isNull(error);
         assert.isFunction(hide);
 
@@ -19,7 +19,7 @@ describe('simple-web-notification', function () {
             done();
         }
     };
-    var errorValidation = function (error, hide, done) {
+    const errorValidation = function (error, hide, done) {
         assert.isDefined(error);
         assert.isNull(hide);
         done();
@@ -39,7 +39,7 @@ describe('simple-web-notification', function () {
         });
 
         it('global', function () {
-            var global = {
+            const global = {
                 Notification: window.Notification
             };
 
@@ -50,12 +50,12 @@ describe('simple-web-notification', function () {
         });
 
         it('define', function () {
-            var global = {
+            const global = {
                 Notification: window.Notification
             };
 
             window.define = function (factory) {
-                var webNotification = factory();
+                const webNotification = factory();
 
                 assert.isObject(webNotification);
                 assert.isFunction(webNotification.showNotification);
@@ -68,7 +68,7 @@ describe('simple-web-notification', function () {
         });
 
         it('module', function () {
-            var global = {
+            const global = {
                 Notification: window.Notification
             };
 
@@ -313,7 +313,7 @@ describe('simple-web-notification', function () {
                 window.webNotification.showNotification('Example Notification', {
                     body: 'Notification Text...',
                     icon: 'my-icon.ico',
-                    onClick: function () {
+                    onClick() {
                         done();
                     }
                 }, function onShow(error, hide) {
@@ -323,7 +323,7 @@ describe('simple-web-notification', function () {
 
             it('error on new', function (done) {
                 assert.isTrue(window.webNotification.lib.MOCK_NOTIFY);
-                var mockNotification = window.Notification;
+                const mockNotification = window.Notification;
                 window.Notification = function () {
                     throw new Error('test');
                 };
@@ -346,13 +346,13 @@ describe('simple-web-notification', function () {
                     assert.equal(options.icon, 'my-icon.ico');
                 });
 
-                var tag;
+                let tag;
 
                 window.webNotification.showNotification('Example Notification', {
                     body: 'Notification Text...',
                     icon: 'my-icon.ico',
                     serviceWorkerRegistration: {
-                        showNotification: function (title, options) {
+                        showNotification(title, options) {
                             assert.equal(title, 'Example Notification');
                             assert.equal(options.body, 'Notification Text...');
                             assert.equal(options.icon, 'my-icon.ico');
@@ -361,37 +361,39 @@ describe('simple-web-notification', function () {
                             tag = options.tag;
 
                             return {
-                                then: function (callback) {
+                                then(callback) {
                                     setTimeout(callback, 10);
 
-                                    return {
-                                        catch: function () {
-                                            return undefined;
-                                        }
+                                    const output = {};
+                                    output.catch = function () {
+                                        return undefined;
                                     };
+
+                                    return output;
                                 }
                             };
                         },
-                        getNotifications: function (options) {
+                        getNotifications(options) {
                             assert.equal(options.tag, tag);
 
                             return {
-                                then: function (callback) {
+                                then(callback) {
                                     setTimeout(function () {
                                         callback([
                                             {
-                                                close: function () {
+                                                close() {
                                                     return undefined;
                                                 }
                                             }
                                         ]);
                                     }, 10);
 
-                                    return {
-                                        catch: function (errorCB) {
-                                            assert.isFunction(errorCB);
-                                        }
+                                    const output = {};
+                                    output.catch = function (errorCB) {
+                                        assert.isFunction(errorCB);
                                     };
+
+                                    return output;
                                 }
                             };
                         }
@@ -417,44 +419,46 @@ describe('simple-web-notification', function () {
                     icon: 'my-icon.ico',
                     tag: '123',
                     serviceWorkerRegistration: {
-                        showNotification: function (title, options) {
+                        showNotification(title, options) {
                             assert.equal(title, 'Example Notification');
                             assert.equal(options.body, 'Notification Text...');
                             assert.equal(options.icon, 'my-icon.ico');
                             assert.equal(options.tag, '123');
 
                             return {
-                                then: function (callback) {
+                                then(callback) {
                                     setTimeout(callback, 10);
 
-                                    return {
-                                        catch: function () {
-                                            return undefined;
-                                        }
+                                    const output = {};
+                                    output.catch = function () {
+                                        return undefined;
                                     };
+
+                                    return output;
                                 }
                             };
                         },
-                        getNotifications: function (options) {
+                        getNotifications(options) {
                             assert.equal(options.tag, '123');
 
                             return {
-                                then: function (callback) {
+                                then(callback) {
                                     setTimeout(function () {
                                         callback([
                                             {
-                                                close: function () {
+                                                close() {
                                                     return undefined;
                                                 }
                                             }
                                         ]);
                                     }, 10);
 
-                                    return {
-                                        catch: function (errorCB) {
-                                            assert.isFunction(errorCB);
-                                        }
+                                    const output = {};
+                                    output.catch = function (errorCB) {
+                                        assert.isFunction(errorCB);
                                     };
+
+                                    return output;
                                 }
                             };
                         }
@@ -476,36 +480,38 @@ describe('simple-web-notification', function () {
                 window.webNotification.showNotification('Example Notification', {
                     body: 'Notification Text...',
                     serviceWorkerRegistration: {
-                        showNotification: function (title, options) {
+                        showNotification(title, options) {
                             assert.equal(title, 'Example Notification');
                             assert.isDefined(options);
 
                             return {
-                                then: function (callback) {
+                                then(callback) {
                                     setTimeout(callback, 10);
 
-                                    return {
-                                        catch: function () {
-                                            return undefined;
-                                        }
+                                    const output = {};
+                                    output.catch = function () {
+                                        return undefined;
                                     };
+
+                                    return output;
                                 }
                             };
                         },
-                        getNotifications: function (options) {
+                        getNotifications(options) {
                             assert.isDefined(options.tag);
 
                             return {
-                                then: function (callback) {
+                                then(callback) {
                                     setTimeout(function () {
                                         callback([]);
                                     }, 10);
 
-                                    return {
-                                        catch: function (errorCB) {
-                                            assert.isFunction(errorCB);
-                                        }
+                                    const output = {};
+                                    output.catch = function (errorCB) {
+                                        assert.isFunction(errorCB);
                                     };
+
+                                    return output;
                                 }
                             };
                         }
@@ -528,21 +534,22 @@ describe('simple-web-notification', function () {
                 window.webNotification.showNotification('Example Notification', {
                     body: 'Notification Text...',
                     serviceWorkerRegistration: {
-                        showNotification: function (title, options) {
+                        showNotification(title, options) {
                             assert.equal(title, 'Example Notification');
                             assert.isDefined(options);
 
                             return {
-                                then: function (validCB) {
+                                then(validCB) {
                                     assert.isFunction(validCB);
 
-                                    return {
-                                        catch: function (errorCB) {
-                                            setTimeout(function () {
-                                                errorCB(new Error('test'));
-                                            }, 10);
-                                        }
+                                    const output = {};
+                                    output.catch = function (errorCB) {
+                                        setTimeout(function () {
+                                            errorCB(new Error('test'));
+                                        }, 10);
                                     };
+
+                                    return output;
                                 }
                             };
                         }
@@ -566,36 +573,38 @@ describe('simple-web-notification', function () {
                 window.webNotification.showNotification('Example Notification', {
                     body: 'Notification Text...',
                     serviceWorkerRegistration: {
-                        showNotification: function (title, options) {
+                        showNotification(title, options) {
                             assert.equal(title, 'Example Notification');
                             assert.isDefined(options);
 
                             return {
-                                then: function (callback) {
+                                then(callback) {
                                     setTimeout(callback, 10);
 
-                                    return {
-                                        catch: function () {
-                                            return undefined;
-                                        }
+                                    const output = {};
+                                    output.catch = function () {
+                                        return undefined;
                                     };
+
+                                    return output;
                                 }
                             };
                         },
-                        getNotifications: function (options) {
+                        getNotifications(options) {
                             assert.isDefined(options.tag);
 
                             return {
-                                then: function (validCB) {
+                                then(validCB) {
                                     assert.isFunction(validCB);
 
-                                    return {
-                                        catch: function (errorCB) {
-                                            setTimeout(function () {
-                                                errorCB(new Error('test'));
-                                            }, 10);
-                                        }
+                                    const output = {};
+                                    output.catch = function (errorCB) {
+                                        setTimeout(function () {
+                                            errorCB(new Error('test'));
+                                        }, 10);
                                     };
+
+                                    return output;
                                 }
                             };
                         }

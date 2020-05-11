@@ -1,6 +1,6 @@
 # simple-web-notification
 
-[![NPM Version](http://img.shields.io/npm/v/simple-web-notification.svg?style=flat)](https://www.npmjs.org/package/simple-web-notification) [![Build Status](https://travis-ci.org/sagiegurari/simple-web-notification.svg)](http://travis-ci.org/sagiegurari/simple-web-notification) [![Coverage Status](https://coveralls.io/repos/sagiegurari/simple-web-notification/badge.svg)](https://coveralls.io/r/sagiegurari/simple-web-notification) [![Known Vulnerabilities](https://snyk.io/test/github/sagiegurari/simple-web-notification/badge.svg)](https://snyk.io/test/github/sagiegurari/simple-web-notification) [![Inline docs](http://inch-ci.org/github/sagiegurari/simple-web-notification.svg?branch=master)](http://inch-ci.org/github/sagiegurari/simple-web-notification) [![License](https://img.shields.io/npm/l/simple-web-notification.svg?style=flat)](https://github.com/sagiegurari/simple-web-notification/blob/master/LICENSE)
+[![NPM Version](http://img.shields.io/npm/v/simple-web-notification.svg?style=flat)](https://www.npmjs.org/package/simple-web-notification) [![CI](https://github.com/sagiegurari/simple-web-notification/workflows/CI/badge.svg?branch=master)](https://github.com/sagiegurari/simple-web-notification/actions) [![Coverage Status](https://coveralls.io/repos/sagiegurari/simple-web-notification/badge.svg)](https://coveralls.io/r/sagiegurari/simple-web-notification) [![Known Vulnerabilities](https://snyk.io/test/github/sagiegurari/simple-web-notification/badge.svg)](https://snyk.io/test/github/sagiegurari/simple-web-notification) [![Inline docs](http://inch-ci.org/github/sagiegurari/simple-web-notification.svg?branch=master)](http://inch-ci.org/github/sagiegurari/simple-web-notification) [![License](https://img.shields.io/npm/l/simple-web-notification.svg?style=flat)](https://github.com/sagiegurari/simple-web-notification/blob/master/LICENSE)
 
 > Web Notifications made easy
 
@@ -142,6 +142,7 @@ See [contributing guide](.github/CONTRIBUTING.md)
 
 | Date        | Version | Description |
 | ----------- | ------- | ----------- |
+| 2020-05-11  | v2.0.0  | Migrate to github actions, upgrade minimal node version and remove bower |
 | 2019-02-08  | v1.0.32 | Maintenance |
 | 2018-06-25  | v1.0.28 | Expose webNotification.requestPermission #5 |
 | 2018-06-14  | v1.0.26 | Better error detection on chrome mobile #4 |

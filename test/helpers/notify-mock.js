@@ -1,21 +1,21 @@
 window.Notification = (function Notification() {
     'use strict';
 
-    var noop = function () {
+    const noop = function () {
             return undefined;
     };
 
-    var permissionInfo = {
+    const permissionInfo = {
         value: null
     };
 
-    var oncePermission;
+    let oncePermission;
 
-    var Lib = function (title, options) {
-        var validateNotification = Lib.validateNotification || noop;
+    const Lib = function (title, options) {
+        const validateNotification = Lib.validateNotification || noop;
         validateNotification(title, options);
 
-        var self = this;
+        const self = this;
         self.close = function () {
             if (options.onClick) {
                 self.onclick();
@@ -27,7 +27,7 @@ window.Notification = (function Notification() {
 
     Object.defineProperty(Lib, 'permission', {
         enumerable: true,
-        get: function () {
+        get() {
             return permissionInfo.value;
         }
     });

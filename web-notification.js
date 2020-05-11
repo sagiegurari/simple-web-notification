@@ -38,9 +38,9 @@
     'use strict';
 
     /*istanbul ignore next*/
-    var NotificationAPI = global.Notification || window.Notification;
+    const NotificationAPI = global.Notification || window.Notification;
 
-    var webNotification = factory(NotificationAPI);
+    const webNotification = factory(NotificationAPI);
 
     /**
      * Initializes the web notification API (only used for testing).
@@ -70,9 +70,9 @@
 }(this, function initWebNotification(NotificationAPI) {
     'use strict';
 
-    var tagCounter = 0;
+    let tagCounter = 0;
 
-    var webNotification = {};
+    const webNotification = {};
 
     /**
      * The internal Notification library used by this library.
@@ -104,7 +104,7 @@
          * @returns {Boolean} True if permission is granted, else false
          */
         get: function getPermission() {
-            var permission = NotificationAPI.permission;
+            const permission = NotificationAPI.permission;
 
             /**
              * True if permission is granted, else false.
@@ -113,7 +113,7 @@
              * @alias webNotification.permissionGranted
              * @public
              */
-            var permissionGranted = false;
+            let permissionGranted = false;
             if (permission === 'granted') {
                 permissionGranted = true;
             }
@@ -132,7 +132,7 @@
      * @private
      * @returns {undefined} Undefined
      */
-    var noop = function () {
+    const noop = function () {
         return undefined;
     };
 
@@ -145,7 +145,7 @@
      * @private
      * @returns {Boolean} True if allowed to show web notifications
      */
-    var isEnabled = function () {
+    const isEnabled = function () {
         return webNotification.permissionGranted;
     };
 
@@ -164,8 +164,8 @@
      * @param {Object} [options.serviceWorkerRegistration] - Optional service worker registeration used to show the notification
      * @param {ShowNotificationCallback} callback - Invoked with either an error or the hide notification function
      */
-    var createAndDisplayNotification = function (title, options, callback) {
-        var autoClose = 0;
+    const createAndDisplayNotification = function (title, options, callback) {
+        let autoClose = 0;
         if (options.autoClose && (typeof options.autoClose === 'number')) {
             autoClose = options.autoClose;
         }
@@ -175,13 +175,13 @@
             options.icon = '/favicon.ico';
         }
 
-        var onNotification = function (notification) {
+        const onNotification = function (notification) {
             //add onclick handler
             if (options.onClick && notification) {
                 notification.onclick = options.onClick;
             }
 
-            var hideNotification = function () {
+            const hideNotification = function () {
                 notification.close();
             };
 
@@ -192,7 +192,7 @@
             callback(null, hideNotification);
         };
 
-        var serviceWorkerRegistration = options.serviceWorkerRegistration;
+        const serviceWorkerRegistration = options.serviceWorkerRegistration;
         if (serviceWorkerRegistration) {
             delete options.serviceWorkerRegistration;
 
@@ -200,11 +200,11 @@
                 tagCounter++;
                 options.tag = 'webnotification-' + Date.now() + '-' + tagCounter;
             }
-            var tag = options.tag;
+            const tag = options.tag;
 
             serviceWorkerRegistration.showNotification(title, options).then(function onCreate() {
                 serviceWorkerRegistration.getNotifications({
-                    tag: tag
+                    tag
                 }).then(function notificationsFetched(notifications) {
                     if (notifications && notifications.length) {
                         onNotification(notifications[0]);
@@ -214,7 +214,7 @@
                 }).catch(callback);
             }).catch(callback);
         } else {
-            var instance;
+            let instance;
             try {
                 instance = new NotificationAPI(title, options);
             } catch (error) {
@@ -238,20 +238,20 @@
      * @param {Array} argumentsArray - An array of all arguments provided to the show notification function
      * @returns {Object} The parsed data
      */
-    var parseInput = function (argumentsArray) {
+    const parseInput = function (argumentsArray) {
         //callback is always the last argument
-        var callback = noop;
+        let callback = noop;
         if (argumentsArray.length && (typeof argumentsArray[argumentsArray.length - 1] === 'function')) {
             callback = argumentsArray.pop();
         }
 
-        var title = null;
-        var options = null;
+        let title = null;
+        let options = null;
         if (argumentsArray.length === 2) {
             title = argumentsArray[0];
             options = argumentsArray[1];
         } else if (argumentsArray.length === 1) {
-            var value = argumentsArray.pop();
+            const value = argumentsArray.pop();
             if (typeof value === 'string') {
                 title = value;
                 options = {};
@@ -266,9 +266,9 @@
         options = options || {};
 
         return {
-            callback: callback,
-            title: title,
-            options: options
+            callback,
+            title,
+            options
         };
     };
 
@@ -381,15 +381,15 @@
      */
     webNotification.showNotification = function () {
         //convert to array to enable modifications
-        var argumentsArray = Array.prototype.slice.call(arguments, 0);
+        const argumentsArray = Array.prototype.slice.call(arguments, 0);
 
         if ((argumentsArray.length >= 1) && (argumentsArray.length <= 3)) {
-            var data = parseInput(argumentsArray);
+            const data = parseInput(argumentsArray);
 
             //get values
-            var callback = data.callback;
-            var title = data.title;
-            var options = data.options;
+            const callback = data.callback;
+            const title = data.title;
+            const options = data.options;
 
             webNotification.requestPermission(function onRequestDone(granted) {
                 if (granted) {

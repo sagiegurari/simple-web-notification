@@ -1,7 +1,0 @@
-language: node_js
-cache:
-  npm: false
-node_js:
-  - "lts/*"
-addons:
-  chrome: stable
