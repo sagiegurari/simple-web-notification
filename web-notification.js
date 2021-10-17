@@ -1,4 +1,4 @@
-/*global module: false, define: false */
+/*global define: false */
 
 /**
  * 'showNotification' callback.

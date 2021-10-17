@@ -2,7 +2,7 @@ window.Notification = (function Notification() {
     'use strict';
 
     const noop = function () {
-            return undefined;
+        return undefined;
     };
 
     const permissionInfo = {
